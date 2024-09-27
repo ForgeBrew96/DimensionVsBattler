@@ -16,14 +16,15 @@ const ALLSEARCHBARS = document.querySelector(`#allSearchBars`)
 
 const SEARCHCONTAINER = document.querySelectorAll(`.searchContainer`)
 const INPUTTEXT = document.querySelectorAll(`.inputText`)
+console.log(SEARCHCONTAINER[0].childNodes[3])
 const SEARCHBUTTON = document.querySelectorAll(`.searchButton`)
+console.log(SEARCHCONTAINER[0].childNodes[5])
 const IPNAME = document.querySelectorAll(`.iPName`)
+console.log(SEARCHCONTAINER[0].childNodes[7])
 const TEXTINFODISPLAY = document.querySelectorAll(`.testInfoDisplay`)
+console.log(SEARCHCONTAINER[0].childNodes[9])
 
-
-console.log(SEARCHCONTAINER[0].childNodes[7].textContent)
-
-
+console.log(SEARCHCONTAINER)
 
 
 
@@ -102,7 +103,7 @@ console.log(SEARCHCONTAINER[0].childNodes[7].textContent)
 
 
 
-//Search function to search characters from One Piece====================================================
+//Search function to search characters from One Piece and the paired click events====================================================
 
 const fetchOnePieceCharacterByName = async (characterName) => {
     const query = `
@@ -139,38 +140,37 @@ const fetchOnePieceCharacterByName = async (characterName) => {
         );
 
         // Clear previous results in the testInfoDisplay
-        testInfoDisplay.innerHTML = '';
+        SEARCHCONTAINER[0].childNodes[9].innerHTML = '';
 
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
-                testInfoDisplay.appendChild(characterDiv);
+                SEARCHCONTAINER[0].childNodes[9].appendChild(characterDiv);
             });
         } else {
-            testInfoDisplay.textContent = `No characters found for: ${characterName}`;
+            SEARCHCONTAINER[0].childNodes[9].textContent = `No characters found for: ${characterName}`;
         }
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 };
 
-//====================================================
-searchButton1.addEventListener('click', () => {
-    const characterName = SEARCHCONTAINER[0].childNodes[7].value;
+SEARCHCONTAINER[0].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[0].childNodes[3].value;
     fetchOnePieceCharacterByName(characterName);
 });
 
-INPUTTEXT1.addEventListener(`keypress`, (e) => {
+SEARCHCONTAINER[0].childNodes[3].addEventListener(`keypress`, (e) => {
     if (e.key === `Enter`) {
-        const characterName = SEARCHCONTAINER[0].childNodes[7].value;
-        let searchText = SEARCHCONTAINER[0].childNodes[7].value;
+        const characterName = SEARCHCONTAINER[0].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[0].childNodes[3].value
         fetchOnePieceCharacterByName(searchText);
         e.preventDefault()
     }
 }
 )
-
+//==========================================================================================================================================================
 
 
 
