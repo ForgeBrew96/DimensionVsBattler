@@ -24,7 +24,53 @@ console.log(SEARCHCONTAINER[0].childNodes[7])
 const TEXTINFODISPLAY = document.querySelectorAll(`.testInfoDisplay`)
 console.log(SEARCHCONTAINER[0].childNodes[9])
 
-console.log(SEARCHCONTAINER)
+//CARDS OBJECT===============================================================================================================================
+const CARDS = document.querySelectorAll(".card")
+console.log(CARDS)
+const elementsOfCards = {}
+CARDS.forEach((value, index) => {
+    elementsOfCards[index] = [CARDS[index].childNodes[3], CARDS[index].childNodes[5], CARDS[index].childNodes[7], CARDS[index].childNodes[9]];
+})
+console.log(elementsOfCards)
+
+//PLAYER OBJECTS===============================================================================================================================
+const PLAYER = document.querySelectorAll(".player")
+const PLAYERS = {}
+console.log(PLAYER)
+PLAYER.forEach((value, index) => {
+    PLAYERS[index] = [PLAYER[index].childNodes[1], PLAYER[index].childNodes[3], PLAYER[index].childNodes[5],];
+})
+//1 = card, 3 = dice, 5 = wincounter-------------------
+
+
+//Game Logic===============================================================================================================================
+//Card Stats/Ability Generator
+function rollDice() {
+    return Math.floor(Math.random() * (7 - 1) + 1);
+}
+console.log(rollDice())
+const diceButton1 = PLAYERS[0][1]
+const diceButton2 = PLAYERS[1][1]
+
+diceButton1.addEventListener('click', () => {
+    const result = rollDice();
+    elementsOfCards[0][0].textContent = `Pow: ${result}`;
+    console.log(elementsOfCards[0][0].textContent);
+    diceButton1.disabled = true
+})
+
+diceButton2.addEventListener('click', () => {
+    const result = rollDice();
+    elementsOfCards[1][0].textContent = `Pow: ${result}`;
+    console.log(elementsOfCards[1][0].textContent)
+    diceButton2.disabled = true
+})
+
+//Round Win Condition
+//Match Win Condition
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -144,9 +190,10 @@ const fetchOnePieceCharacterByName = async (characterName) => {
 
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
-                const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
-                SEARCHCONTAINER[0].childNodes[9].appendChild(characterDiv);
+                console.log(SEARCHCONTAINER)
+                SEARCHCONTAINER[0].childNodes[9].textContent = `Character found: ${character.name}`;
+                elementsOfCards[0][1].src = character.image;
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
             SEARCHCONTAINER[0].childNodes[9].textContent = `No characters found for: ${characterName}`;
@@ -170,7 +217,221 @@ SEARCHCONTAINER[0].childNodes[3].addEventListener(`keypress`, (e) => {
     }
 }
 )
-//==========================================================================================================================================================
+//Boku no Hero Academia 7==================================================================================================================================================
+const listMyHeroAcademia7 = async () => {
+const query = `
+    {
+        Media(search: "Boku no Hero Academia 7") {
+            characters {
+                edges {
+                    node {
+                        name {
+                            full
+                        }
+                        image {
+                            medium
+                        }
+                    }
+                }
+            }
+        }
+    }`;
+
+    const response = await fetch('https://graphql.anilist.co', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+    });
+
+    const data = await response.json();
+
+    const characters = data.data.Media.characters.edges.map(edge => ({
+        name: edge.node.name.full,
+        image: edge.node.image.medium,
+    }));
+    console.log(`Total characters fetched: ${characters.length}`);
+    console.log(characters);
+};
+listMyHeroAcademia7();
+//---------------------------------------------------------------------------------------------------------
+// Above grabs a list of character in console log, below is for the actual user activity of searching. 
+//---------------------------------------------------------------------------------------------------------
+
+const fetchmyHeroAcademia7ByName = async (characterName) => {
+    const query = `
+    {
+        Media(search: "Boku no Hero Academia 7") {
+            characters {
+                edges {
+                    node {
+                        name {
+                            full
+                        }
+                        image {
+                            medium
+                        }
+                    }
+                }
+            }
+        }
+    }`;
+
+    try {
+        const response = await axios.post('https://graphql.anilist.co', {
+            query,
+        });
+
+        const characters = response.data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+
+        // Filter characters based on the user's input
+        const filteredCharacters = characters.filter(character =>
+            character.name.toLowerCase().includes(characterName.toLowerCase())
+        );
+
+        // Clear previous results in the testInfoDisplay
+        SEARCHCONTAINER[1].childNodes[9].innerHTML = '';
+
+        if (filteredCharacters.length > 0) {
+            filteredCharacters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[1].childNodes[9].appendChild(characterDiv);
+                elementsOfCards[1][1].src = character.image;
+                SEARCHCONTAINER[1].childNodes[5].disabled = true;
+            });
+        } else {
+            SEARCHCONTAINER[1].childNodes[9].textContent = `No characters found for: ${characterName}`;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+SEARCHCONTAINER[1].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[1].childNodes[3].value;
+    fetchmyHeroAcademia7ByName(characterName);
+});
+
+SEARCHCONTAINER[1].childNodes[3].addEventListener(`keypress`, (e) => {
+    if (e.key === `Enter`) {
+        const characterName = SEARCHCONTAINER[1].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[1].childNodes[3].value
+        fetchmyHeroAcademia7ByName(searchText);
+        e.preventDefault()
+    }
+}
+)
 
 
+//Blue Lock===============================================================================================================================================================
+const listBlueLock = async () => {
+    const query = `
+        {
+            Media(search: "Blue Lock") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+    
+        const response = await fetch('https://graphql.anilist.co', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query }),
+        });
+    
+        const data = await response.json();
+    
+        const characters = data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+        console.log(`Total characters fetched: ${characters.length}`);
+        console.log(characters);
+    };
+    listBlueLock();
+    //---------------------------------------------------------------------------------------------------------
+    const fetchBlueLockByName = async (characterName) => {
+        const query = `
+        {
+            Media(search: "Blue Lock") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+    
+        try {
+            const response = await axios.post('https://graphql.anilist.co', {
+                query,
+            });
+    
+            const characters = response.data.data.Media.characters.edges.map(edge => ({
+                name: edge.node.name.full,
+                image: edge.node.image.medium,
+            }));
+    
+            // Filter characters based on the user's input
+            const filteredCharacters = characters.filter(character =>
+                character.name.toLowerCase().includes(characterName.toLowerCase())
+            );
+    
+            // Clear previous results in the testInfoDisplay
+            SEARCHCONTAINER[2].childNodes[9].innerHTML = '';
+    
+            if (filteredCharacters.length > 0) {
+                filteredCharacters.forEach(character => {
+                    const characterDiv = document.createElement('div');
+                    characterDiv.textContent = `Character found: ${character.name}`;
+                    SEARCHCONTAINER[2].childNodes[9].appendChild(characterDiv);
+                    elementsOfCards[2][1].src = character.image;
+                    SEARCHCONTAINER[2].childNodes[5].disabled = true;
+                });
+            } else {
+                SEARCHCONTAINER[2].childNodes[9].textContent = `No characters found for: ${characterName}`;
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    
+    SEARCHCONTAINER[2].childNodes[5].addEventListener('click', () => {
+        const characterName = SEARCHCONTAINER[2].childNodes[3].value;
+        fetchBlueLockByName(characterName);
+    });
+    
+    SEARCHCONTAINER[2].childNodes[3].addEventListener(`keypress`, (e) => {
+        if (e.key === `Enter`) {
+            const characterName = SEARCHCONTAINER[2].childNodes[3].value;
+            let searchText = SEARCHCONTAINER[2].childNodes[3].value
+            fetchBlueLockByName(searchText);
+            e.preventDefault()
+        }
+    }
+    )
 
