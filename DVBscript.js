@@ -73,7 +73,7 @@ diceButton2.addEventListener('click', () => {
     diceButton2.disabled = true
 })
 
-//Round Win Condition
+//Round and Match Win Conditions and Logic
 STARTNEXTROUND.disabled = true
 function checkAndRunRoundWin() {
     if (player1DiceResult > 0 && player2DiceResult > 0) {
@@ -131,28 +131,39 @@ function reset() {
     SEARCHCONTAINER[1].childNodes[9].textContent = '';
     SEARCHCONTAINER[2].childNodes[9].textContent = '';
     STARTNEXTROUND.disabled = true
-   
+
 }
+
 let clickCount = 0
 diceButton1.addEventListener('click', handleClick)
 diceButton2.addEventListener('click', handleClick)
 function handleClick() {
     clickCount++;
-for (i = clickCount; clickCount === 2 && clickCount != 0; clickCount = 0) {
-       roundWin()
-STARTNEXTROUND.disabled = false
+    for (i = clickCount; clickCount === 2 && clickCount != 0; clickCount = 0) {
+        roundWin()
+        STARTNEXTROUND.disabled = false
+    }
+    if (WINCOUNTP2.innerText == 2) {
+        ROUNDCOUNTER.innerText = "FINISHED"
+        STARTNEXTROUND.disabled = true
+        diceButton1.disabled = true;
+        diceButton2.disabled = true;
+        console.log(`Player 2 is the Dimension Champion!`)
+    } else if (WINCOUNTP1.innerText == 2) {
+        ROUNDCOUNTER.innerText = "FINISHED"
+        STARTNEXTROUND.disabled = true
+        diceButton1.disabled = true;
+        diceButton2.disabled = true;
+        console.log(`Player 1 is the Dimension Champion!`)
+    }
+    
 }
-}
+
 
 diceButton1.addEventListener('click', handleClick)
 diceButton2.addEventListener('click', handleClick)
 
 STARTNEXTROUND.addEventListener('click', reset)
-
-
-//Match Win Condition
-
-
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 
