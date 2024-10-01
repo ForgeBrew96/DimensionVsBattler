@@ -74,7 +74,7 @@ diceButton2.addEventListener('click', () => {
 })
 
 //Round Win Condition
-
+STARTNEXTROUND.disabled = true
 function checkAndRunRoundWin() {
     if (player1DiceResult > 0 && player2DiceResult > 0) {
         round1Win()
@@ -82,22 +82,19 @@ function checkAndRunRoundWin() {
         round3Win()
     }
 }
-
-function round1Win() {
+function roundWin() {
     if (player1DiceResult != 0 && player1DiceResult > player2DiceResult) {
         console.log(`player 1 wins`)
-        result = parseInt(WINCOUNTP1.dataset.increment)
-        result += 1
-        WINCOUNTP1.innerText = result
-        WINCOUNTP1.dataset.increment = result
-        console.log(result)
+        result1 = parseInt(WINCOUNTP1.dataset.increment)
+        result1 += 1
+        WINCOUNTP1.innerText = result1
+        WINCOUNTP1.dataset.increment = result1
     } else if (player1DiceResult != 0 && player2DiceResult > player1DiceResult) {
         console.log(`player 2 Wins`)
-        result = parseInt(WINCOUNTP2.dataset.increment)
-        result += 1
-        WINCOUNTP2.innerText = result
-        WINCOUNTP2.dataset.increment = result
-        console.log(result)
+        result2 = parseInt(WINCOUNTP2.dataset.increment)
+        result2 += 1
+        WINCOUNTP2.innerText = result2
+        WINCOUNTP2.dataset.increment = result2
     } else {
         diceButton1.disabled = false;
         diceButton2.disabled = false;
@@ -108,93 +105,43 @@ function round1Win() {
         checkAndRunRoundWin()
     }
 
+
 }
 
 function reset() {
+
 
     roundCount = parseInt(ROUNDCOUNTER.dataset.increment)
     roundCount += 1
     ROUNDCOUNTER.innerText = roundCount
     ROUNDCOUNTER.dataset.increment = roundCount
 
+
     player1DiceResult = 0;
     player2DiceResult = 0;
     diceButton1.disabled = false;
     diceButton2.disabled = false;
 
+
     elementsOfCards[0][0].textContent = 'Pow: 0';
     elementsOfCards[1][0].textContent = 'Pow: 0';
+
 
     SEARCHCONTAINER[0].childNodes[9].textContent = '';
     SEARCHCONTAINER[1].childNodes[9].textContent = '';
     SEARCHCONTAINER[2].childNodes[9].textContent = '';
+    STARTNEXTROUND.disabled = true
+   
 }
-
-function round2Win() {
-    if (player1DiceResult != 0 && player1DiceResult > player2DiceResult) {
-        console.log(`player 1 wins`)
-        result = parseInt(WINCOUNTP1.dataset.increment)
-        result += 1
-        WINCOUNTP1.innerText = result
-        WINCOUNTP1.dataset.increment = result
-        console.log(result)
-    } else if (player1DiceResult != 0 && player2DiceResult > player1DiceResult) {
-        console.log(`player 2 Wins`)
-        result = parseInt(WINCOUNTP2.dataset.increment)
-        result += 1
-        WINCOUNTP2.innerText = result
-        WINCOUNTP2.dataset.increment = result
-        console.log(result)
-    } else {
-        diceButton1.disabled = false;
-        diceButton2.disabled = false;
-        console.log(`This battle is close! Neither character is giving in just yet!`);
-        clickCount = 0;
-        player1DiceResult = 0;
-        player2DiceResult = 0;
-        checkAndRunRoundWin()
-    }
-
-}
-
-function round3Win() {
-    if (player1DiceResult != 0 && player1DiceResult > player2DiceResult) {
-        console.log(`player 1 wins`)
-        result = parseInt(WINCOUNTP1.dataset.increment)
-        result += 1
-        WINCOUNTP1.innerText = result
-        WINCOUNTP1.dataset.increment = result
-        console.log(result)
-    } else if (player1DiceResult != 0 && player2DiceResult > player1DiceResult) {
-        console.log(`player 2 Wins`)
-        result = parseInt(WINCOUNTP2.dataset.increment)
-        result += 1
-        WINCOUNTP2.innerText = result
-        WINCOUNTP2.dataset.increment = result
-        console.log(result)
-    } else {
-        diceButton1.disabled = false;
-        diceButton2.disabled = false;
-        console.log(`This battle is close! Neither character is giving in just yet!`);
-        clickCount = 0;
-        player1DiceResult = 0;
-        player2DiceResult = 0;
-        checkAndRunRoundWin()
-    }
-
-}
-
 let clickCount = 0
+diceButton1.addEventListener('click', handleClick)
+diceButton2.addEventListener('click', handleClick)
 function handleClick() {
     clickCount++;
-    if (clickCount === 2) {
-        round1Win();
-    } else if (clickCount === 4) {
-        round2Win();
-    }
-    else if (clickCount === 6) {
-        round3Win();
-    }
+for (i = clickCount; clickCount === 2 && clickCount != 0; clickCount = 0) {
+       roundWin()
+STARTNEXTROUND.disabled = false
+}
 }
 
 diceButton1.addEventListener('click', handleClick)
