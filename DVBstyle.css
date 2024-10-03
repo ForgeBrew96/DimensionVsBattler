@@ -1,3 +1,69 @@
+.startNextRound {
+
+}
+
+button {
+    background: linear-gradient(135deg, #5b2e91, #00c6ff);
+    border-radius: 12px;
+    border: 2px solid #ff6f91;
+    color: white;
+    font-family: 'YourFancyFont', sans-serif;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.roundWord, .roundNumber {
+    background: linear-gradient(135deg, #5b2e91, #00c6ff);
+    border-radius: 12px;
+    border: 2px solid #ff6f91;
+    color: white;
+    font-family: 'YourFancyFont', sans-serif;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 10%;
+    left: 43.7%;
+   
+}
+
+.summonRuleText {
+    background: linear-gradient(135deg, #5b2e91, #00c6ff);
+    border-radius: 12px;
+    border: 2px solid #ff6f91;
+    color: white;
+    font-family: 'YourFancyFont', sans-serif;
+    padding: 5px 10px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 40%;
+    margin-bottom: .2%
+}
+
+.roundRuleText {
+    background: linear-gradient(135deg, #5b2e91, #00c6ff);
+    border-radius: 12px;
+    border: 2px solid #ff6f91;
+    color: white;
+    font-family: 'YourFancyFont', sans-serif;
+    padding: 5px 10px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 40%;
+    margin-bottom: .2%;
+    margin-top: -3%;
+    left: 58.5%
+}
+
+button:hover {
+    box-shadow: 0 0 20px rgba(255, 111, 145, 0.8);
+    transform: scale(1.05);
+}
+
 body {
     background-image: url("https://scitechdaily.com/images/Black-Hole-Event-Horizon-Artistic-Illustration.jpg");
     background-size: cover; 
@@ -171,6 +237,7 @@ ul {
 }
 
 
+/* This is how my dice button blinks when clicked */
 @keyframes roll {
     0% { transform: rotateX(0) rotateY(0); }
     25% { transform: rotateX(360deg); }
@@ -314,6 +381,10 @@ ul {
     .card {
         top: 4%
     }
+    .roundRuleText {
+        margin-top: -9%;
+        left: 55%
+    }
 }
 
 @media screen and (min-width: 400px) and (max-width: 800px) {
@@ -346,6 +417,10 @@ ul {
 
     #allSearchBars {
         flex-direction: column; 
+    }
+    .roundRuleText {
+        margin-top: -27%;
+        left: 55%
     }
 }
 

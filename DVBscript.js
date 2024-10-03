@@ -24,6 +24,7 @@ console.log(SEARCHCONTAINER[0].childNodes[7])
 const TEXTINFODISPLAY = document.querySelectorAll(`.testInfoDisplay`)
 console.log(SEARCHCONTAINER[0].childNodes[9])
 const WINCOUNTP1 = document.querySelector(`.winCountP1`)
+console.log(WINCOUNTP1)
 const WINCOUNTP2 = document.querySelector(`.winCountP2`)
 const ROUNDCOUNTER = document.querySelector(`.roundNumber`)
 const STARTNEXTROUND = document.querySelector(`.startNextRound`)
@@ -53,6 +54,7 @@ function rollDice() {
 }
 
 console.log(PLAYERS[0][1])
+console.log(PLAYER)
 console.log(rollDice())
 const diceButton1 = PLAYERS[0][0]
 const diceButton2 = PLAYERS[1][0]
@@ -86,9 +88,7 @@ diceButton2.addEventListener('click', () => {
 STARTNEXTROUND.disabled = true
 function checkAndRunRoundWin() {
     if (player1DiceResult > 0 && player2DiceResult > 0) {
-        round1Win()
-        round2Win()
-        round3Win()
+        roundWin()
     }
 }
 function roundWin() {
@@ -144,7 +144,6 @@ function reset() {
     STARTNEXTROUND.disabled = true
     elementsOfCards[0][2].innerText = "Name"
     elementsOfCards[1][2].innerText = "Name"
-
 }
 
 let clickCount = 0
@@ -179,6 +178,7 @@ diceButton2.addEventListener('click', handleClick)
 STARTNEXTROUND.addEventListener('click', reset)
 function newGame() {
     ROUNDCOUNTER.innerText = 1
+    ROUNDCOUNTER.dataset.increment = 1
   
     player1DiceResult = 0;
     player2DiceResult = 0;
@@ -197,7 +197,10 @@ function newGame() {
     elementsOfCards[1][1].src = "http://127.0.0.1:5500/DVBindex.html"
     STARTNEXTROUND.disabled = true;
     WINCOUNTP1.innerText = 0;
-    WINCOUNTP2.innerText = 0
+    WINCOUNTP2.innerText = 0;
+    WINCOUNTP1.dataset.increment = 0;
+    WINCOUNTP2.dataset.increment = 0;
+    
 }
 PLAYAGAIN.addEventListener(`click`, newGame)
 //-------------------------------------------------------------------------------------------------------------------------------------------
