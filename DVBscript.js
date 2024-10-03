@@ -61,6 +61,8 @@ console.log(PLAYER)
 console.log(rollDice())
 const diceButton1 = PLAYERS[0][0]
 const diceButton2 = PLAYERS[1][0]
+diceButton1.disabled = true
+diceButton2.disabled = true
 
 let player1DiceResult = 0;
 diceButton1.addEventListener('click', () => {
@@ -108,6 +110,35 @@ ABILITYUNLOCK[1].addEventListener(`click`, applyingAbility2)
 ABILITYUNLOCK[0].addEventListener('click', abilityHandleClick)
 ABILITYUNLOCK[1].addEventListener('click', abilityHandleClick)
 
+
+let searchBarclickCount = 0
+function searchBarClicks() {
+    searchBarclickCount++
+}
+
+SEARCHCONTAINER[2].childNodes[5].addEventListener('click', searchBarClicks)
+SEARCHCONTAINER[2].childNodes[3].addEventListener('click', searchBarClicks)
+function releaseGameButtons() {
+    if (
+        elementsOfCards[0][2].innerText !== "Name" &&
+        elementsOfCards[0][2].innerText !== "Name"
+    ) {
+        diceButton1.disabled = false
+        diceButton2.disabled = false
+    } else {
+        console.log('Conditions not met');
+    }
+}
+
+SEARCHCONTAINER.forEach(container => {
+    const childNodes = container.childNodes;
+
+    [3, 5].forEach(index => {
+        if (childNodes[index]) {
+            childNodes[index].addEventListener('click', releaseGameButtons)
+        }
+    })
+})
 
 //Round and Match Win Conditions and Logic
 STARTNEXTROUND.disabled = true
@@ -161,8 +192,8 @@ function reset() {
 
     player1DiceResult = 0;
     player2DiceResult = 0;
-    diceButton1.disabled = false;
-    diceButton2.disabled = false;
+    diceButton1.disabled = true
+    diceButton2.disabled = true
     CARDABILITY[0].textContent = "Ability:"
     CARDABILITY[1].textContent = "Ability:"
 
@@ -222,8 +253,8 @@ function newGame() {
     CARDABILITY[1].textContent = "Ability:"
     player1DiceResult = 0;
     player2DiceResult = 0;
-    diceButton1.disabled = false;
-    diceButton2.disabled = false;
+    diceButton1.disabled = true
+    diceButton2.disabled = true
 
     elementsOfCards[0][0].textContent = 'Pow: 0';
     elementsOfCards[1][0].textContent = 'Pow: 0';
@@ -364,7 +395,7 @@ const fetchOnePieceCharacterByName = async (characterName) => {
 
         // Clear previous results in the testInfoDisplay
         SEARCHCONTAINER[0].childNodes[9].innerHTML = '';
-console.log(elementsOfCards[0][1])
+        console.log(elementsOfCards[0][1])
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 console.log(SEARCHCONTAINER)
@@ -1113,15 +1144,3 @@ SEARCHCONTAINER[8].childNodes[3].addEventListener(`keypress`, (e) => {
 }
 )
 
-// function fightPopClick() {
-//     if (
-//         elementsOfCards[0][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
-//         elementsOfCards[1][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
-//         WINANNCOUNCEMENTS.innerText === 'CHOOSE YOUR CHAMPION!'
-//     ) {
-//         console.log('Conditions met, changing innerText');
-//         WINANNCOUNCEMENTS.innerText = 'FIGHT!';
-//     } else {
-//         console.log('Conditions not met');
-//     }
-// }
