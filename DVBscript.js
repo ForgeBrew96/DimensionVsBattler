@@ -61,8 +61,6 @@ console.log(PLAYER)
 console.log(rollDice())
 const diceButton1 = PLAYERS[0][0]
 const diceButton2 = PLAYERS[1][0]
-diceButton1.disabled = true
-diceButton2.disabled = true
 
 let player1DiceResult = 0;
 diceButton1.addEventListener('click', () => {
@@ -109,34 +107,6 @@ ABILITYUNLOCK[0].addEventListener(`click`, applyingAbility1)
 ABILITYUNLOCK[1].addEventListener(`click`, applyingAbility2)
 ABILITYUNLOCK[0].addEventListener('click', abilityHandleClick)
 ABILITYUNLOCK[1].addEventListener('click', abilityHandleClick)
-
-function releaseGameButtons() {
-    diceButton1.disabled = false
-    diceButton2.disabled = false
-
-}
-
-let searchBarclickCount = 0
-function searchBarClicks() {
-    searchBarclickCount += 1;
-    if (
-        elementsOfCards[0][2].innerText !== "Name" &&
-        elementsOfCards[1][2].innerText !== "Name"
-    ) {
-        releaseGameButtons()
-    }
-}
-
-
-SEARCHCONTAINER.forEach(container => {
-    const childNodes = container.childNodes;
-
-    [3, 5].forEach(index => {
-        if (childNodes[index]) {
-            childNodes[index].addEventListener('click', searchBarClicks)
-        }
-    })
-})
 
 //Round and Match Win Conditions and Logic
 STARTNEXTROUND.disabled = true
@@ -190,8 +160,8 @@ function reset() {
 
     player1DiceResult = 0;
     player2DiceResult = 0;
-    diceButton1.disabled = true
-    diceButton2.disabled = true
+    diceButton1.disabled = false
+    diceButton2.disabled = false
     CARDABILITY[0].textContent = "Ability:"
     CARDABILITY[1].textContent = "Ability:"
 
@@ -253,8 +223,8 @@ function newGame() {
     CARDABILITY[1].textContent = "Ability:"
     player1DiceResult = 0;
     player2DiceResult = 0;
-    diceButton1.disabled = true
-    diceButton2.disabled = true
+    diceButton1.disabled = false
+    diceButton2.disabled = false
 
     elementsOfCards[0][0].textContent = 'Pow: 0';
     elementsOfCards[1][0].textContent = 'Pow: 0';
@@ -1144,3 +1114,21 @@ SEARCHCONTAINER[8].childNodes[3].addEventListener(`keypress`, (e) => {
 }
 )
 
+
+// function releaseGameButtons() {
+//     diceButton1.disabled = false
+//     diceButton2.disabled = false
+// }
+
+// console.log(elementsOfCards[0][2])
+
+// function searchBarClicks() {
+//     if (elementsOfCards[0][2] !== "Name" && elementsOfCards[1][2] !== "Name") {
+//         releaseGameButtons()
+//     }
+// }
+
+// SEARCHBUTTON.forEach(button => {
+//     button.addEventListener('click', searchBarClicks);
+//     }
+// );
