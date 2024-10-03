@@ -364,12 +364,12 @@ const fetchOnePieceCharacterByName = async (characterName) => {
 
         // Clear previous results in the testInfoDisplay
         SEARCHCONTAINER[0].childNodes[9].innerHTML = '';
-
+console.log(elementsOfCards[0][1])
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 console.log(SEARCHCONTAINER)
                 SEARCHCONTAINER[0].childNodes[9].textContent = `Character found: ${character.name}`;
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -484,7 +484,7 @@ const fetchmyHeroAcademia7ByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[1].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -598,7 +598,7 @@ const fetchBlueLockByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[2].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -673,7 +673,7 @@ const fetchReZeroByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[3].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -747,7 +747,7 @@ const fetchFULLMETALALCHEMISTByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[4].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -821,7 +821,7 @@ const fetchRiseOfTheShieldHeroByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[5].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -933,7 +933,7 @@ const fetchTowerOfGodByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[6].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -1007,7 +1007,7 @@ const fetchJujutsuKaisenByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[7].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -1081,7 +1081,7 @@ const fetchDemonSlayerByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[8].childNodes[9].appendChild(characterDiv);
-                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
                 } else {
@@ -1113,15 +1113,15 @@ SEARCHCONTAINER[8].childNodes[3].addEventListener(`keypress`, (e) => {
 }
 )
 
-function fightPopClick() {
-    if (
-        elementsOfCards[0][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
-        elementsOfCards[1][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
-        WINANNCOUNCEMENTS.innerText === 'CHOOSE YOUR CHAMPION!'
-    ) {
-        console.log('Conditions met, changing innerText');
-        WINANNCOUNCEMENTS.innerText = 'FIGHT!';
-    } else {
-        console.log('Conditions not met');
-    }
-}
+// function fightPopClick() {
+//     if (
+//         elementsOfCards[0][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
+//         elementsOfCards[1][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
+//         WINANNCOUNCEMENTS.innerText === 'CHOOSE YOUR CHAMPION!'
+//     ) {
+//         console.log('Conditions met, changing innerText');
+//         WINANNCOUNCEMENTS.innerText = 'FIGHT!';
+//     } else {
+//         console.log('Conditions not met');
+//     }
+// }
