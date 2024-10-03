@@ -217,7 +217,7 @@ STARTNEXTROUND.addEventListener('click', reset)
 function newGame() {
     ROUNDCOUNTER.innerText = 1
     ROUNDCOUNTER.dataset.increment = 1
-    
+
     CARDABILITY[0].textContent = "Ability:"
     CARDABILITY[1].textContent = "Ability:"
     player1DiceResult = 0;
@@ -1125,40 +1125,3 @@ function fightPopClick() {
         console.log('Conditions not met');
     }
 }
-
-
-// let clickCounts = { child3: 0, child5: 0 };
-
-// // Function to check if both child nodes have been double-clicked
-// function checkFight() {
-//     if (clickCounts.child3 > 0 && clickCounts.child5 > 0) {
-//         WINANNCOUNCEMENTS.innerText = 'FIGHT!';
-//         resetCounts(); // Reset counts after setting text
-//     }
-// }
-// checkFight()
-// // Reset the click counts
-// function resetCounts() {
-//     clickCounts.child3 = 0;
-//     clickCounts.child5 = 0;
-// }
-
-// // Add event listeners to each SEARCHCONTAINER element
-// SEARCHCONTAINER.forEach(container => {
-//     const child3 = container.childNodes[3];
-//     const child5 = container.childNodes[5];
-
-//     if (child3) {
-//         child3.addEventListener('dblclick', () => {
-//             clickCounts.child3++;
-//             checkFight();
-//         });
-//     }
-
-//     if (child5) {
-//         child5.addEventListener('dblclick', () => {
-//             clickCounts.child5++;
-//             checkFight();
-//         });
-//     }
-// });
