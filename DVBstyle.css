@@ -1,22 +1,199 @@
-.searchContainer {
-    margin-bottom: 10%
+body {
+    background-image: url("https://scitechdaily.com/images/Black-Hole-Event-Horizon-Artistic-Illustration.jpg");
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.cardImage {
-    position: relative;
-    width: 25%;
-    z-index: 1
+h1 {
+    text-align: center
 }
 
 ul {
     list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin: 0% 10px;
+}
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+}
+
+.players {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.player {
     display: flex;
     flex-direction: row;
+    padding: 35px 25px 35px 25px;
+    border: 6px solid #ccc;
+    position: relative;
+    width: 45%;
+}
+
+.leftContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    border: 6px solid #ccc;
+    height: 100px;
+    padding: 10% 10%;
+    margin-right: 15%;
+    background-image: url("https://image.cdn2.seaart.ai/2023-09-23/17985440937177093/2a0fe01469ac8a187ee97913cee1ccbf143db9da_high.webp");
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    padding: 20px;
+    background: linear-gradient(45deg, #c0c0c0, #e6e6e6, #ffffff, #e6e6e6, #c0c0c0);
+    border: 2px solid #333;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cardPower {
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    top: -8%;
+    left: 10%;
+    right: 10%;
     font-size: 200%;
-    color: rgb(24, 6, 6)
+    color: rgb(255, 255, 255);
+    background: rgb(24, 6, 6);
+    border-radius: 70%;
+    border: 2px solid #3f0ccc;
+    text-align: center;
+    padding: 10px 0;
 }
+
+.cardImage {
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 60%;
+    width: 80%;
+    background: linear-gradient(45deg, #c8a94a, #b89e3e, #a68c29, #8b6814);
+    object-fit: cover;
+    border: 3px solid #b80d0d;
+}
+
+.cardName {
+    position: absolute;
+    bottom: -5%;
+    left: 10%;
+    right: 10%;
+    color: white;
+    background: rgb(24, 6, 6);
+    font-size: 150%;
+    text-align: center;
+    border: 2px solid #8f0ccc;
+    padding: 5px 0;
+}
+
+.cardAbility {
+    position: absolute;
+    bottom: 8%;
+    left: 10%;
+    right: 10%;
+    font-size: 100%;
+    color: white;
+    background: rgb(24, 6, 6);
+    border: 2px solid linear-gradient(45deg, #cd7f32, #b76e3f, #8c5d32, #4e3c26);
+    text-align: center;
+    padding: 30px 0;
+}
+
+
+.roundCounter {
+    margin: 10px 0;
+    text-align: center
+}
+
+
+#allSearchBars {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+
+@media screen and (max-width: 1400px) and (min-width: 400px) {
+    body {
+        background-image: url("https://cdn.mos.cms.futurecdn.net/HsDtpFEHbDpae6wBuW5wQo.jpg");
+        background-size: cover; 
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .player {
+        flex-direction: column;
+        align-items: center
+    }
+
+    .leftContent {
+        width: 50%;
+        align-items: center;
+        position: relative;
+        right: -7.5%;
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+        body {
+            background-image: url("https://img.stablecog.com/insecure/1920w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vODY2NTY2MWYtOTk2Mi00YmFmLTgwYjktZDZjNWExYWM3NmJlLmpwZWc.webp");
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+    .players {
+        flex-direction: column;
+        align-items: center
+    }
+
+    .player {
+        flex-direction: column;
+        align-items: center
+    }
+
+    .leftContent {
+        width: 60%;
+        align-items: center;
+        position: relative;
+        right: -7.5%
+    }
+}
+
+
+
+
+
+/* third of the size
+@media screen and (max-width: 400px) {
+    body {
+        background-color: rgb(135, 250, 192)
+    }
+} */

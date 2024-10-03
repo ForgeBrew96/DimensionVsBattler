@@ -1,6 +1,6 @@
 //----------------------------------------------------
 // Author: Christian Mendoza
-// Date: 9/27/2024
+// Date: 10/2/2024
 //----------------------------------------------------
 //HTML Variables====================================================
 
@@ -27,6 +27,7 @@ const WINCOUNTP1 = document.querySelector(`.winCountP1`)
 const WINCOUNTP2 = document.querySelector(`.winCountP2`)
 const ROUNDCOUNTER = document.querySelector(`.roundNumber`)
 const STARTNEXTROUND = document.querySelector(`.startNextRound`)
+const PLAYAGAIN = document.querySelector(".newGame")
 
 //CARDS OBJECT===============================================================================================================================
 const CARDS = document.querySelectorAll(".card")
@@ -42,19 +43,20 @@ const PLAYER = document.querySelectorAll(".player")
 const PLAYERS = {}
 console.log(PLAYER)
 PLAYER.forEach((value, index) => {
-    PLAYERS[index] = [PLAYER[index].childNodes[1], PLAYER[index].childNodes[3], PLAYER[index].childNodes[5],];
+    PLAYERS[index] = [PLAYER[index].childNodes[1].childNodes[1], PLAYER[index].childNodes[1].childNodes[3], PLAYER[index].childNodes[1].childNodes[5],];
 })
 //1 = card, 3 = dice, 5 = wincounter-------------------
-
 
 //Game Logic===============================================================================================================================
 //Card Stats/Ability Generator
 function rollDice() {
     return Math.floor(Math.random() * (7 - 1) + 1);
 }
+
+console.log(PLAYERS[0][1])
 console.log(rollDice())
-const diceButton1 = PLAYERS[0][1]
-const diceButton2 = PLAYERS[1][1]
+const diceButton1 = PLAYERS[0][0]
+const diceButton2 = PLAYERS[1][0]
 
 let player1DiceResult = 0;
 diceButton1.addEventListener('click', () => {
@@ -125,12 +127,16 @@ function reset() {
 
     elementsOfCards[0][0].textContent = 'Pow: 0';
     elementsOfCards[1][0].textContent = 'Pow: 0';
+    elementsOfCards[0][1].src = "http://127.0.0.1:5500/DVBindex.html"
+    elementsOfCards[1][1].src = "http://127.0.0.1:5500/DVBindex.html"
 
 
     SEARCHCONTAINER[0].childNodes[9].textContent = '';
     SEARCHCONTAINER[1].childNodes[9].textContent = '';
     SEARCHCONTAINER[2].childNodes[9].textContent = '';
     STARTNEXTROUND.disabled = true
+    elementsOfCards[0][2].innerText = "Name"
+    elementsOfCards[1][2].innerText = "Name"
 
 }
 
@@ -164,6 +170,29 @@ diceButton1.addEventListener('click', handleClick)
 diceButton2.addEventListener('click', handleClick)
 
 STARTNEXTROUND.addEventListener('click', reset)
+function newGame() {
+    ROUNDCOUNTER.innerText = 1
+  
+    player1DiceResult = 0;
+    player2DiceResult = 0;
+    diceButton1.disabled = false;
+    diceButton2.disabled = false;
+
+    elementsOfCards[0][0].textContent = 'Pow: 0';
+    elementsOfCards[1][0].textContent = 'Pow: 0';
+    SEARCHCONTAINER.forEach((container) => {
+        container.childNodes[3].value = '';
+        container.childNodes[9].innerText = '';
+        container.childNodes[5].disabled = false;
+    });
+    
+    elementsOfCards[0][1].src = "http://127.0.0.1:5500/DVBindex.html"
+    elementsOfCards[1][1].src = "http://127.0.0.1:5500/DVBindex.html"
+    STARTNEXTROUND.disabled = true;
+    WINCOUNTP1.innerText = 0;
+    WINCOUNTP2.innerText = 0
+}
+PLAYAGAIN.addEventListener(`click`, newGame)
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -286,7 +315,13 @@ const fetchOnePieceCharacterByName = async (characterName) => {
             filteredCharacters.forEach(character => {
                 console.log(SEARCHCONTAINER)
                 SEARCHCONTAINER[0].childNodes[9].textContent = `Character found: ${character.name}`;
-                elementsOfCards[0][1].src = character.image;
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -395,8 +430,14 @@ const fetchmyHeroAcademia7ByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[1].childNodes[9].appendChild(characterDiv);
-                elementsOfCards[1][1].src = character.image;
-                SEARCHCONTAINER[1].childNodes[5].disabled = true;
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
             SEARCHCONTAINER[1].childNodes[9].textContent = `No characters found for: ${characterName}`;
@@ -422,7 +463,7 @@ SEARCHCONTAINER[1].childNodes[3].addEventListener(`keypress`, (e) => {
 )
 
 
-//Blue Lock===============================================================================================================================================================
+//Blue Lock============================================================
 const listBlueLock = async () => {
     const query = `
         {
@@ -460,7 +501,7 @@ const listBlueLock = async () => {
     console.log(characters);
 };
 listBlueLock();
-//---------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 const fetchBlueLockByName = async (characterName) => {
     const query = `
         {
@@ -503,8 +544,14 @@ const fetchBlueLockByName = async (characterName) => {
                 const characterDiv = document.createElement('div');
                 characterDiv.textContent = `Character found: ${character.name}`;
                 SEARCHCONTAINER[2].childNodes[9].appendChild(characterDiv);
-                elementsOfCards[2][1].src = character.image;
-                SEARCHCONTAINER[2].childNodes[5].disabled = true;
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
             SEARCHCONTAINER[2].childNodes[9].textContent = `No characters found for: ${characterName}`;
@@ -529,3 +576,485 @@ SEARCHCONTAINER[2].childNodes[3].addEventListener(`keypress`, (e) => {
 }
 )
 
+//Re:Zero================================================================================
+const fetchReZeroByName = async (characterName) => {
+    const query = `
+        {
+            Media(search: "Re:Zero kara Hajimeru Isekai Seikatsu 2nd Season Part 2") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await axios.post('https://graphql.anilist.co', {
+            query,
+        });
+
+        const characters = response.data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+
+        // Filter characters based on the user's input
+        const filteredCharacters = characters.filter(character =>
+            character.name.toLowerCase().includes(characterName.toLowerCase())
+        );
+
+        // Clear previous results in the testInfoDisplay
+        SEARCHCONTAINER[3].childNodes[9].innerHTML = '';
+
+        if (filteredCharacters.length > 0) {
+            filteredCharacters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[3].childNodes[9].appendChild(characterDiv);
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
+            });
+        } else {
+            SEARCHCONTAINER[3].childNodes[9].textContent = `No characters found for: ${characterName}`;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+SEARCHCONTAINER[3].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[2].childNodes[3].value;
+    fetchReZeroByName(characterName);
+});
+
+SEARCHCONTAINER[3].childNodes[3].addEventListener(`keypress`, (e) => {
+    if (e.key === `Enter`) {
+        const characterName = SEARCHCONTAINER[3].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[3].childNodes[3].value
+        fetchReZeroByName(searchText);
+        e.preventDefault()
+    }
+}
+)
+//FULLMETAL ALCHEMIST====================================================================
+const fetchFULLMETALALCHEMISTByName = async (characterName) => {
+    const query = `
+        {
+            Media(search: "Hagane no Renkinjutsushi: FULLMETAL ALCHEMIST") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await axios.post('https://graphql.anilist.co', {
+            query,
+        });
+
+        const characters = response.data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+
+        // Filter characters based on the user's input
+        const filteredCharacters = characters.filter(character =>
+            character.name.toLowerCase().includes(characterName.toLowerCase())
+        );
+
+        // Clear previous results in the testInfoDisplay
+        SEARCHCONTAINER[4].childNodes[9].innerHTML = '';
+
+        if (filteredCharacters.length > 0) {
+            filteredCharacters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[4].childNodes[9].appendChild(characterDiv);
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
+            });
+        } else {
+            SEARCHCONTAINER[4].childNodes[9].textContent = `No characters found for: ${characterName}`;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+SEARCHCONTAINER[4].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[4].childNodes[3].value;
+    fetchFULLMETALALCHEMISTByName(characterName);
+});
+
+SEARCHCONTAINER[4].childNodes[3].addEventListener(`keypress`, (e) => {
+    if (e.key === `Enter`) {
+        const characterName = SEARCHCONTAINER[4].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[4].childNodes[3].value
+        fetchFULLMETALALCHEMISTByName(searchText);
+        e.preventDefault()
+    }
+}
+)
+//Rise of The Shield Hero====================================================
+const fetchRiseOfTheShieldHeroByName = async (characterName) => {
+    const query = `
+        {
+            Media(search: "Tate no Yuusha no Nariagari") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await axios.post('https://graphql.anilist.co', {
+            query,
+        });
+
+        const characters = response.data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+
+        // Filter characters based on the user's input
+        const filteredCharacters = characters.filter(character =>
+            character.name.toLowerCase().includes(characterName.toLowerCase())
+        );
+
+        // Clear previous results in the testInfoDisplay
+        SEARCHCONTAINER[5].childNodes[9].innerHTML = '';
+
+        if (filteredCharacters.length > 0) {
+            filteredCharacters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[5].childNodes[9].appendChild(characterDiv);
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
+            });
+        } else {
+            SEARCHCONTAINER[5].childNodes[9].textContent = `No characters found for: ${characterName}`;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+SEARCHCONTAINER[5].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[5].childNodes[3].value;
+    fetchRiseOfTheShieldHeroByName(characterName);
+});
+
+SEARCHCONTAINER[5].childNodes[3].addEventListener(`keypress`, (e) => {
+    if (e.key === `Enter`) {
+        const characterName = SEARCHCONTAINER[5].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[5].childNodes[3].value
+        fetchRiseOfTheShieldHeroByName(searchText);
+        e.preventDefault()
+    }
+}
+)
+//Tower of God========================================================================
+const listTowerOfGod = async () => {
+    const query = `
+        {
+            Media(search: "Kami no Tou: Tower of God 2nd Season") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+    const response = await fetch('https://graphql.anilist.co', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+    });
+
+    const data = await response.json();
+
+    const characters = data.data.Media.characters.edges.map(edge => ({
+        name: edge.node.name.full,
+        image: edge.node.image.medium,
+    }));
+    console.log(`Total characters fetched: ${characters.length}`);
+    console.log(characters);
+};
+listTowerOfGod();
+//--------------------------------------------------
+const fetchTowerOfGodByName = async (characterName) => {
+    const query = `
+        {
+            Media(search: "Kami no Tou: Tower of God 2nd Season") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await axios.post('https://graphql.anilist.co', {
+            query,
+        });
+
+        const characters = response.data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+
+        // Filter characters based on the user's input
+        const filteredCharacters = characters.filter(character =>
+            character.name.toLowerCase().includes(characterName.toLowerCase())
+        );
+
+        // Clear previous results in the testInfoDisplay
+        SEARCHCONTAINER[6].childNodes[9].innerHTML = '';
+
+        if (filteredCharacters.length > 0) {
+            filteredCharacters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[6].childNodes[9].appendChild(characterDiv);
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
+            });
+        } else {
+            SEARCHCONTAINER[6].childNodes[9].textContent = `No characters found for: ${characterName}`;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+SEARCHCONTAINER[6].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[2].childNodes[3].value;
+    fetchTowerOfGodByName(characterName);
+});
+
+SEARCHCONTAINER[6].childNodes[3].addEventListener(`keypress`, (e) => {
+    if (e.key === `Enter`) {
+        const characterName = SEARCHCONTAINER[6].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[6].childNodes[3].value
+        fetchTowerOfGodByName(searchText);
+        e.preventDefault()
+    }
+}
+)
+//Jujutsu Kaisen=================================================================
+const fetchJujutsuKaisenByName = async (characterName) => {
+    const query = `
+        {
+            Media(search: "Jujutsu Kaisen") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await axios.post('https://graphql.anilist.co', {
+            query,
+        });
+
+        const characters = response.data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+
+        // Filter characters based on the user's input
+        const filteredCharacters = characters.filter(character =>
+            character.name.toLowerCase().includes(characterName.toLowerCase())
+        );
+
+        // Clear previous results in the testInfoDisplay
+        SEARCHCONTAINER[7].childNodes[9].innerHTML = '';
+
+        if (filteredCharacters.length > 0) {
+            filteredCharacters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[7].childNodes[9].appendChild(characterDiv);
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
+            });
+        } else {
+            SEARCHCONTAINER[7].childNodes[9].textContent = `No characters found for: ${characterName}`;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+SEARCHCONTAINER[7].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[7].childNodes[3].value;
+    fetchJujutsuKaisenByName(characterName);
+});
+
+SEARCHCONTAINER[7].childNodes[3].addEventListener(`keypress`, (e) => {
+    if (e.key === `Enter`) {
+        const characterName = SEARCHCONTAINER[7].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[7].childNodes[3].value
+        fetchJujutsuKaisenByName(searchText);
+        e.preventDefault()
+    }
+}
+)
+//Demon Slayer=====================================================================
+const fetchDemonSlayerByName = async (characterName) => {
+    const query = `
+        {
+            Media(search: "Kimetsu no Yaiba") {
+                characters {
+                    edges {
+                        node {
+                            name {
+                                full
+                            }
+                            image {
+                                medium
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await axios.post('https://graphql.anilist.co', {
+            query,
+        });
+
+        const characters = response.data.data.Media.characters.edges.map(edge => ({
+            name: edge.node.name.full,
+            image: edge.node.image.medium,
+        }));
+
+        // Filter characters based on the user's input
+        const filteredCharacters = characters.filter(character =>
+            character.name.toLowerCase().includes(characterName.toLowerCase())
+        );
+
+        // Clear previous results in the testInfoDisplay
+        SEARCHCONTAINER[8].childNodes[9].innerHTML = '';
+
+        if (filteredCharacters.length > 0) {
+            filteredCharacters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[8].childNodes[9].appendChild(characterDiv);
+                if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
+                    elementsOfCards[0][1].src = character.image
+                    elementsOfCards[0][2].innerText = character.name
+                    } else {
+                    elementsOfCards[1][1].src = character.image
+                    elementsOfCards[1][2].innerText = character.name
+                    };                    
+                SEARCHCONTAINER[0].childNodes[5].disabled = true
+            });
+        } else {
+            SEARCHCONTAINER[8].childNodes[9].textContent = `No characters found for: ${characterName}`;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+SEARCHCONTAINER[8].childNodes[5].addEventListener('click', () => {
+    const characterName = SEARCHCONTAINER[8].childNodes[3].value;
+    fetchDemonSlayerByName(characterName);
+});
+
+SEARCHCONTAINER[8].childNodes[3].addEventListener(`keypress`, (e) => {
+    if (e.key === `Enter`) {
+        const characterName = SEARCHCONTAINER[8].childNodes[3].value;
+        let searchText = SEARCHCONTAINER[8].childNodes[3].value
+        fetchDemonSlayerByName(searchText);
+        e.preventDefault()
+    }
+}
+)
