@@ -50,15 +50,6 @@ PLAYER.forEach((value, index) => {
 
 //Game Logic===============================================================================================================================
 //Card Stats/Ability Generator
-ABILITYUNLOCK.disabled = true
-
-const ABILITYUNLOCK = document.querySelectorAll (`.abilityUnlock`)
-
-function applyingAbility() {
-    elementsOfCards[0][0].textContent = `Pow: ${result + 2}`;
-}
-
-ABILITYUNLOCK.addEventListener(`click`, applyingAbility())
 
 function rollDice() {
     return Math.floor(Math.random() * (7 - 1) + 1);
@@ -72,21 +63,22 @@ const diceButton2 = PLAYERS[1][0]
 
 let player1DiceResult = 0;
 diceButton1.addEventListener('click', () => {
-    const result = rollDice();
-    player1DiceResult = result
-    elementsOfCards[0][0].textContent = `Pow: ${result}`;
+    const result1 = rollDice();
+    player1DiceResult = result1
+    elementsOfCards[0][0].textContent = `Pow: ${result1}`;
     console.log(elementsOfCards[0][0].textContent);
     diceButton1.disabled = true
     diceButton1.style.animation = 'roll 0.7s ease';
     diceButton1.addEventListener('animationend', () => {
         diceButton1.style.animation = '';
     }, { once: true });
+
 })
 let player2DiceResult = 0;
 diceButton2.addEventListener('click', () => {
-    const result = rollDice();
-    player2DiceResult = result
-    elementsOfCards[1][0].textContent = `Pow: ${result}`;
+    const result2 = rollDice();
+    player2DiceResult = result2
+    elementsOfCards[1][0].textContent = `Pow: ${result2}`;
     console.log(elementsOfCards[1][0].textContent)
     diceButton2.disabled = true
     diceButton2.style.animation = 'roll 0.7s ease';
@@ -95,10 +87,29 @@ diceButton2.addEventListener('click', () => {
     }, { once: true });
 })
 
+const ABILITYUNLOCK = document.querySelectorAll (`.abilityUnlock`)
+
+ABILITYUNLOCK.disabled = true
+
+function applyingAbility1() {
+    const newPower = player1DiceResult + 2
+    elementsOfCards[0][0].textContent = `Pow: ${newPower}`;
+}
+function applyingAbility2() {
+    const newPower = player2DiceResult + 2
+    elementsOfCards[1][0].textContent = `Pow: ${newPower}`;
+}
+
+ABILITYUNLOCK[0].addEventListener(`click`, applyingAbility1)
+ABILITYUNLOCK[1].addEventListener(`click`, applyingAbility2)
+ABILITYUNLOCK[0].addEventListener('click', abilityHandleClick)
+ABILITYUNLOCK[1].addEventListener('click', abilityHandleClick)
+
+
 //Round and Match Win Conditions and Logic
 STARTNEXTROUND.disabled = true
 function checkAndRunRoundWin() {
-    if (player1DiceResult > 0 && player2DiceResult > 0) {
+    if (player1DiceResult > 0 && player2DiceResult > 0 && abilityClickCount == 2) {
         roundWin()
     }
 }
@@ -117,18 +128,22 @@ function roundWin() {
         result2 += 1
         WINCOUNTP2.innerText = result2
         WINCOUNTP2.dataset.increment = result2
-    } else {
+    } else if (player2DiceResult === player1DiceResult ) {
+        player1DiceResult = 0;
+        player2DiceResult = 0; 
+
         diceButton1.disabled = false;
         diceButton2.disabled = false;
+
+        elementsOfCards[0][0].textContent = `Pow: ${player1DiceResult}`;
+        elementsOfCards[1][0].textContent = `Pow: ${player2DiceResult}`;
+
+        clickCount = 0;
+        abilityClickCount = 0;
+
         console.log(`This battle is close! Neither character is giving in just yet!`);
         WINANNCOUNCEMENTS.innerText = `This battle is close! Neither character is giving in just yet!`
-        clickCount = 0;
-        player1DiceResult = 0;
-        player2DiceResult = 0;
-        checkAndRunRoundWin()
     }
-
-
 }
 
 function reset() {
@@ -139,7 +154,8 @@ function reset() {
     ROUNDCOUNTER.innerText = roundCount
     ROUNDCOUNTER.dataset.increment = roundCount
 
-
+    originalPlayer1DiceResult = 0;
+    originalPlayer1DiceResult = 0;
     player1DiceResult = 0;
     player2DiceResult = 0;
     diceButton1.disabled = false;
@@ -159,15 +175,13 @@ function reset() {
     elementsOfCards[0][2].innerText = "Name"
     elementsOfCards[1][2].innerText = "Name"
     WINANNCOUNCEMENTS.innerText = `GET READY AND FIGHT!`
+    abilityClickCount = 0
 }
-
-let clickCount = 0
-diceButton1.addEventListener('click', handleClick)
-diceButton2.addEventListener('click', handleClick)
-function handleClick() {
-    clickCount++;
-    for (i = clickCount; clickCount === 2 && clickCount != 0; clickCount = 0) {
-        roundWin()
+let abilityClickCount = 0
+function abilityHandleClick() {
+    abilityClickCount ++;
+    for (i = abilityClickCount; abilityClickCount === 2 && abilityClickCount != 0; abilityClickCount = 0) {
+        checkAndRunRoundWin()
         STARTNEXTROUND.disabled = false
     }
     if (WINCOUNTP2.innerText == 2) {
@@ -188,8 +202,12 @@ function handleClick() {
     
 }
 
+let clickCount = 0
 diceButton1.addEventListener('click', handleClick)
 diceButton2.addEventListener('click', handleClick)
+function handleClick() {
+    clickCount++;
+}
 
 STARTNEXTROUND.addEventListener('click', reset)
 function newGame() {
@@ -198,6 +216,8 @@ function newGame() {
   
     player1DiceResult = 0;
     player2DiceResult = 0;
+    originalPlayer1DiceResult = 0;
+    originalPlayer1DiceResult = 0;
     diceButton1.disabled = false;
     diceButton2.disabled = false;
 
@@ -217,10 +237,12 @@ function newGame() {
     WINCOUNTP1.dataset.increment = 0;
     WINCOUNTP2.dataset.increment = 0;
     WINANNCOUNCEMENTS.innerText = `CHOOSE YOUR CHAMPION!`
+    abilityClickCount = 0
 }
 
 
 PLAYAGAIN.addEventListener(`click`, newGame)
+
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 
