@@ -110,32 +110,30 @@ ABILITYUNLOCK[1].addEventListener(`click`, applyingAbility2)
 ABILITYUNLOCK[0].addEventListener('click', abilityHandleClick)
 ABILITYUNLOCK[1].addEventListener('click', abilityHandleClick)
 
+function releaseGameButtons() {
+    diceButton1.disabled = false
+    diceButton2.disabled = false
+
+}
 
 let searchBarclickCount = 0
 function searchBarClicks() {
-    searchBarclickCount++
-}
-
-SEARCHCONTAINER[2].childNodes[5].addEventListener('click', searchBarClicks)
-SEARCHCONTAINER[2].childNodes[3].addEventListener('click', searchBarClicks)
-function releaseGameButtons() {
+    searchBarclickCount += 1;
     if (
         elementsOfCards[0][2].innerText !== "Name" &&
-        elementsOfCards[0][2].innerText !== "Name"
+        elementsOfCards[1][2].innerText !== "Name"
     ) {
-        diceButton1.disabled = false
-        diceButton2.disabled = false
-    } else {
-        console.log('Conditions not met');
+        releaseGameButtons()
     }
 }
+
 
 SEARCHCONTAINER.forEach(container => {
     const childNodes = container.childNodes;
 
     [3, 5].forEach(index => {
         if (childNodes[index]) {
-            childNodes[index].addEventListener('click', releaseGameButtons)
+            childNodes[index].addEventListener('click', searchBarClicks)
         }
     })
 })
@@ -199,8 +197,8 @@ function reset() {
 
     elementsOfCards[0][0].textContent = 'Pow: 0';
     elementsOfCards[1][0].textContent = 'Pow: 0';
-    elementsOfCards[0][1].src = "http://127.0.0.1:5500/DVBindex.html"
-    elementsOfCards[1][1].src = "http://127.0.0.1:5500/DVBindex.html"
+    elementsOfCards[0][1].src = "http://127.0.0.1:5500/index.html"
+    elementsOfCards[1][1].src = "http://127.0.0.1:5500/index.html"
 
 
     SEARCHCONTAINER[0].childNodes[9].textContent = '';
@@ -249,6 +247,8 @@ function newGame() {
     ROUNDCOUNTER.innerText = 1
     ROUNDCOUNTER.dataset.increment = 1
 
+    elementsOfCards[0][2].innerText = "Name"
+    elementsOfCards[1][2].innerText = "Name"
     CARDABILITY[0].textContent = "Ability:"
     CARDABILITY[1].textContent = "Ability:"
     player1DiceResult = 0;
@@ -264,8 +264,8 @@ function newGame() {
         container.childNodes[5].disabled = false;
     });
 
-    elementsOfCards[0][1].src = "http://127.0.0.1:5500/DVBindex.html"
-    elementsOfCards[1][1].src = "http://127.0.0.1:5500/DVBindex.html"
+    elementsOfCards[0][1].src = "http://127.0.0.1:5500/index.html"
+    elementsOfCards[1][1].src = "http://127.0.0.1:5500/index.html"
     STARTNEXTROUND.disabled = true;
     WINCOUNTP1.innerText = 0;
     WINCOUNTP2.innerText = 0;
