@@ -29,6 +29,7 @@ const WINCOUNTP2 = document.querySelector(`.winCountP2`)
 const ROUNDCOUNTER = document.querySelector(`.roundNumber`)
 const STARTNEXTROUND = document.querySelector(`.startNextRound`)
 const PLAYAGAIN = document.querySelector(".newGame")
+const WINANNCOUNCEMENTS = document.querySelector(".winAnnouncments")
 
 //CARDS OBJECT===============================================================================================================================
 const CARDS = document.querySelectorAll(".card")
@@ -49,6 +50,13 @@ PLAYER.forEach((value, index) => {
 
 //Game Logic===============================================================================================================================
 //Card Stats/Ability Generator
+
+let clickCounts = { child3: 0, child5: 0 };
+
+// FIGHT FUNCTION WORDS------------------------
+//just notates when they should start fighting
+//----------------------------------------------
+
 function rollDice() {
     return Math.floor(Math.random() * (7 - 1) + 1);
 }
@@ -94,12 +102,14 @@ function checkAndRunRoundWin() {
 function roundWin() {
     if (player1DiceResult != 0 && player1DiceResult > player2DiceResult) {
         console.log(`player 1 wins`)
+        WINANNCOUNCEMENTS.innerText = `Player 1 Wins!`
         result1 = parseInt(WINCOUNTP1.dataset.increment)
         result1 += 1
         WINCOUNTP1.innerText = result1
         WINCOUNTP1.dataset.increment = result1
     } else if (player1DiceResult != 0 && player2DiceResult > player1DiceResult) {
         console.log(`player 2 Wins`)
+        WINANNCOUNCEMENTS.innerText = `Player 2 Wins!`
         result2 = parseInt(WINCOUNTP2.dataset.increment)
         result2 += 1
         WINCOUNTP2.innerText = result2
@@ -108,6 +118,7 @@ function roundWin() {
         diceButton1.disabled = false;
         diceButton2.disabled = false;
         console.log(`This battle is close! Neither character is giving in just yet!`);
+        WINANNCOUNCEMENTS.innerText = `This battle is close! Neither character is giving in just yet!`
         clickCount = 0;
         player1DiceResult = 0;
         player2DiceResult = 0;
@@ -144,6 +155,7 @@ function reset() {
     STARTNEXTROUND.disabled = true
     elementsOfCards[0][2].innerText = "Name"
     elementsOfCards[1][2].innerText = "Name"
+    WINANNCOUNCEMENTS.innerText = `GET READY AND FIGHT!`
 }
 
 let clickCount = 0
@@ -161,16 +173,17 @@ function handleClick() {
         diceButton1.disabled = true;
         diceButton2.disabled = true;
         console.log(`Player 2 is the Dimension Champion!`)
+        WINANNCOUNCEMENTS.innerText = `Player 2 is the DIMENSION CHAMPION!`
     } else if (WINCOUNTP1.innerText == 2) {
         ROUNDCOUNTER.innerText = "FINISHED"
         STARTNEXTROUND.disabled = true
         diceButton1.disabled = true;
         diceButton2.disabled = true;
         console.log(`Player 1 is the Dimension Champion!`)
+        WINANNCOUNCEMENTS.innerText = `Player 1 is the DIMENSION CHAMPION!`
     }
     
 }
-
 
 diceButton1.addEventListener('click', handleClick)
 diceButton2.addEventListener('click', handleClick)
@@ -200,8 +213,10 @@ function newGame() {
     WINCOUNTP2.innerText = 0;
     WINCOUNTP1.dataset.increment = 0;
     WINCOUNTP2.dataset.increment = 0;
-    
+    WINANNCOUNCEMENTS.innerText = `CHOOSE YOUR CHAMPION!`
 }
+
+
 PLAYAGAIN.addEventListener(`click`, newGame)
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1068,3 +1083,53 @@ SEARCHCONTAINER[8].childNodes[3].addEventListener(`keypress`, (e) => {
     }
 }
 )
+
+function fightPopClick() {
+    if (
+        elementsOfCards[0][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
+        elementsOfCards[1][1].src !== "http://127.0.0.1:5500/DVBindex.html" &&
+        WINANNCOUNCEMENTS.innerText === 'CHOOSE YOUR CHAMPION!'
+    ) {
+        console.log('Conditions met, changing innerText');
+        WINANNCOUNCEMENTS.innerText = 'FIGHT!';
+    } else {
+        console.log('Conditions not met');
+    }
+}
+
+
+// let clickCounts = { child3: 0, child5: 0 };
+
+// // Function to check if both child nodes have been double-clicked
+// function checkFight() {
+//     if (clickCounts.child3 > 0 && clickCounts.child5 > 0) {
+//         WINANNCOUNCEMENTS.innerText = 'FIGHT!';
+//         resetCounts(); // Reset counts after setting text
+//     }
+// }
+// checkFight()
+// // Reset the click counts
+// function resetCounts() {
+//     clickCounts.child3 = 0;
+//     clickCounts.child5 = 0;
+// }
+
+// // Add event listeners to each SEARCHCONTAINER element
+// SEARCHCONTAINER.forEach(container => {
+//     const child3 = container.childNodes[3];
+//     const child5 = container.childNodes[5];
+
+//     if (child3) {
+//         child3.addEventListener('dblclick', () => {
+//             clickCounts.child3++;
+//             checkFight();
+//         });
+//     }
+
+//     if (child5) {
+//         child5.addEventListener('dblclick', () => {
+//             clickCounts.child5++;
+//             checkFight();
+//         });
+//     }
+// });
