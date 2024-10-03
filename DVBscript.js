@@ -36,7 +36,6 @@ const elementsOfCards = {}
 CARDS.forEach((value, index) => {
     elementsOfCards[index] = [CARDS[index].childNodes[3], CARDS[index].childNodes[5], CARDS[index].childNodes[7], CARDS[index].childNodes[9]];
 })
-console.log(elementsOfCards)
 
 //PLAYER OBJECTS===============================================================================================================================
 const PLAYER = document.querySelectorAll(".player")
@@ -65,6 +64,10 @@ diceButton1.addEventListener('click', () => {
     elementsOfCards[0][0].textContent = `Pow: ${result}`;
     console.log(elementsOfCards[0][0].textContent);
     diceButton1.disabled = true
+    diceButton1.style.animation = 'roll 0.7s ease';
+    diceButton1.addEventListener('animationend', () => {
+        diceButton1.style.animation = '';
+    }, { once: true });
 })
 let player2DiceResult = 0;
 diceButton2.addEventListener('click', () => {
@@ -73,6 +76,10 @@ diceButton2.addEventListener('click', () => {
     elementsOfCards[1][0].textContent = `Pow: ${result}`;
     console.log(elementsOfCards[1][0].textContent)
     diceButton2.disabled = true
+    diceButton2.style.animation = 'roll 0.7s ease';
+    diceButton2.addEventListener('animationend', () => {
+        diceButton2.style.animation = '';
+    }, { once: true });
 })
 
 //Round and Match Win Conditions and Logic
