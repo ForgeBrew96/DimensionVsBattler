@@ -368,7 +368,7 @@ console.log(elementsOfCards[0][1])
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 console.log(SEARCHCONTAINER)
-                SEARCHCONTAINER[0].childNodes[9].textContent = `Character found: ${character.name}`;
+                SEARCHCONTAINER[0].childNodes[9].textContent = `Character found!`;
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
@@ -482,7 +482,7 @@ const fetchmyHeroAcademia7ByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[1].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
@@ -596,7 +596,7 @@ const fetchBlueLockByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[2].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
@@ -671,7 +671,7 @@ const fetchReZeroByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[3].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
@@ -745,7 +745,7 @@ const fetchFULLMETALALCHEMISTByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[4].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
@@ -819,7 +819,7 @@ const fetchRiseOfTheShieldHeroByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[5].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
@@ -931,7 +931,7 @@ const fetchTowerOfGodByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[6].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
@@ -1005,7 +1005,7 @@ const fetchJujutsuKaisenByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[7].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
@@ -1079,7 +1079,7 @@ const fetchDemonSlayerByName = async (characterName) => {
         if (filteredCharacters.length > 0) {
             filteredCharacters.forEach(character => {
                 const characterDiv = document.createElement('div');
-                characterDiv.textContent = `Character found: ${character.name}`;
+                characterDiv.textContent = `Character found!`;
                 SEARCHCONTAINER[8].childNodes[9].appendChild(characterDiv);
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/index.html") {
                     elementsOfCards[0][1].src = character.image
