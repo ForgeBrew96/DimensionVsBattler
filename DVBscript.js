@@ -30,6 +30,7 @@ const ROUNDCOUNTER = document.querySelector(`.roundNumber`)
 const STARTNEXTROUND = document.querySelector(`.startNextRound`)
 const PLAYAGAIN = document.querySelector(".newGame")
 const WINANNCOUNCEMENTS = document.querySelector(".winAnnouncments")
+const CARDABILITY = document.querySelectorAll('.cardAbility')
 
 //CARDS OBJECT===============================================================================================================================
 const CARDS = document.querySelectorAll(".card")
@@ -87,16 +88,18 @@ diceButton2.addEventListener('click', () => {
     }, { once: true });
 })
 
-const ABILITYUNLOCK = document.querySelectorAll (`.abilityUnlock`)
+const ABILITYUNLOCK = document.querySelectorAll(`.abilityUnlock`)
 
 ABILITYUNLOCK.disabled = true
-
+console.log(CARDABILITY)
 function applyingAbility1() {
     const newPower = player1DiceResult + 2
+    CARDABILITY[0].textContent = "Ability: +2 Power"
     elementsOfCards[0][0].textContent = `Pow: ${newPower}`;
 }
 function applyingAbility2() {
     const newPower = player2DiceResult + 2
+    CARDABILITY[1].textContent = "Ability: +2 Power"
     elementsOfCards[1][0].textContent = `Pow: ${newPower}`;
 }
 
@@ -128,15 +131,17 @@ function roundWin() {
         result2 += 1
         WINCOUNTP2.innerText = result2
         WINCOUNTP2.dataset.increment = result2
-    } else if (player2DiceResult === player1DiceResult ) {
+    } else if (player2DiceResult === player1DiceResult) {
         player1DiceResult = 0;
-        player2DiceResult = 0; 
+        player2DiceResult = 0;
 
         diceButton1.disabled = false;
         diceButton2.disabled = false;
 
         elementsOfCards[0][0].textContent = `Pow: ${player1DiceResult}`;
         elementsOfCards[1][0].textContent = `Pow: ${player2DiceResult}`;
+        CARDABILITY[0].textContent = "Ability:"
+        CARDABILITY[1].textContent = "Ability:"
 
         clickCount = 0;
         abilityClickCount = 0;
@@ -154,13 +159,12 @@ function reset() {
     ROUNDCOUNTER.innerText = roundCount
     ROUNDCOUNTER.dataset.increment = roundCount
 
-    originalPlayer1DiceResult = 0;
-    originalPlayer1DiceResult = 0;
     player1DiceResult = 0;
     player2DiceResult = 0;
     diceButton1.disabled = false;
     diceButton2.disabled = false;
-
+    CARDABILITY[0].textContent = "Ability:"
+    CARDABILITY[1].textContent = "Ability:"
 
     elementsOfCards[0][0].textContent = 'Pow: 0';
     elementsOfCards[1][0].textContent = 'Pow: 0';
@@ -179,7 +183,7 @@ function reset() {
 }
 let abilityClickCount = 0
 function abilityHandleClick() {
-    abilityClickCount ++;
+    abilityClickCount++;
     for (i = abilityClickCount; abilityClickCount === 2 && abilityClickCount != 0; abilityClickCount = 0) {
         checkAndRunRoundWin()
         STARTNEXTROUND.disabled = false
@@ -199,7 +203,7 @@ function abilityHandleClick() {
         console.log(`Player 1 is the Dimension Champion!`)
         WINANNCOUNCEMENTS.innerText = `Player 1 is the DIMENSION CHAMPION!`
     }
-    
+
 }
 
 let clickCount = 0
@@ -213,11 +217,11 @@ STARTNEXTROUND.addEventListener('click', reset)
 function newGame() {
     ROUNDCOUNTER.innerText = 1
     ROUNDCOUNTER.dataset.increment = 1
-  
+    
+    CARDABILITY[0].textContent = "Ability:"
+    CARDABILITY[1].textContent = "Ability:"
     player1DiceResult = 0;
     player2DiceResult = 0;
-    originalPlayer1DiceResult = 0;
-    originalPlayer1DiceResult = 0;
     diceButton1.disabled = false;
     diceButton2.disabled = false;
 
@@ -228,7 +232,7 @@ function newGame() {
         container.childNodes[9].innerText = '';
         container.childNodes[5].disabled = false;
     });
-    
+
     elementsOfCards[0][1].src = "http://127.0.0.1:5500/DVBindex.html"
     elementsOfCards[1][1].src = "http://127.0.0.1:5500/DVBindex.html"
     STARTNEXTROUND.disabled = true;
@@ -368,10 +372,10 @@ const fetchOnePieceCharacterByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -483,10 +487,10 @@ const fetchmyHeroAcademia7ByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -597,10 +601,10 @@ const fetchBlueLockByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -672,10 +676,10 @@ const fetchReZeroByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -746,10 +750,10 @@ const fetchFULLMETALALCHEMISTByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -820,10 +824,10 @@ const fetchRiseOfTheShieldHeroByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -932,10 +936,10 @@ const fetchTowerOfGodByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -1006,10 +1010,10 @@ const fetchJujutsuKaisenByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
@@ -1080,10 +1084,10 @@ const fetchDemonSlayerByName = async (characterName) => {
                 if (elementsOfCards[0][1].src === "http://127.0.0.1:5500/DVBindex.html") {
                     elementsOfCards[0][1].src = character.image
                     elementsOfCards[0][2].innerText = character.name
-                    } else {
+                } else {
                     elementsOfCards[1][1].src = character.image
                     elementsOfCards[1][2].innerText = character.name
-                    };                    
+                };
                 SEARCHCONTAINER[0].childNodes[5].disabled = true
             });
         } else {
