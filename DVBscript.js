@@ -31,7 +31,7 @@ const STARTNEXTROUND = document.querySelector(`.startNextRound`)
 const PLAYAGAIN = document.querySelector(".newGame")
 const WINANNCOUNCEMENTS = document.querySelector(".winAnnouncments")
 const CARDABILITY = document.querySelectorAll('.cardAbility')
-
+console.log(STARTNEXTROUND)
 //CARDS OBJECT===============================================================================================================================
 const CARDS = document.querySelectorAll(".card")
 console.log(CARDS)

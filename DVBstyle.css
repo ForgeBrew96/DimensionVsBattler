@@ -474,6 +474,7 @@ ul {
     }
     .newGame {
         margin-left: 80%;
+        margin-top: -10%;
         margin-bottom: 5%
      }
      .roundCounter {
@@ -501,6 +502,10 @@ ul {
      }
      .roundWord{
         width: 20%
+     }
+     .startNextRound{ 
+        margin-left: 200%;
+        margin-top: 70%
      }
 }
 
