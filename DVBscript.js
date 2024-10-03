@@ -50,12 +50,15 @@ PLAYER.forEach((value, index) => {
 
 //Game Logic===============================================================================================================================
 //Card Stats/Ability Generator
+ABILITYUNLOCK.disabled = true
 
-let clickCounts = { child3: 0, child5: 0 };
+const ABILITYUNLOCK = document.querySelectorAll (`.abilityUnlock`)
 
-// FIGHT FUNCTION WORDS------------------------
-//just notates when they should start fighting
-//----------------------------------------------
+function applyingAbility() {
+    elementsOfCards[0][0].textContent = `Pow: ${result + 2}`;
+}
+
+ABILITYUNLOCK.addEventListener(`click`, applyingAbility())
 
 function rollDice() {
     return Math.floor(Math.random() * (7 - 1) + 1);

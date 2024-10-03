@@ -107,6 +107,7 @@ body {
     z-index: 1;
 }
 
+/*  > * targets all direct child elements of the searchContainer container */
 .searchContainer > * {
     position: relative; 
     z-index: 2; 
@@ -247,7 +248,12 @@ ul {
     align-items: center; 
     cursor: pointer; 
     transition: transform 0.2s ease; 
-    padding: 20% 0%
+    padding: 10% 0%
+}
+
+.abilityUnlock{
+    bottom: 234%;
+    padding: 2% 5%
 }
 
 
@@ -402,8 +408,32 @@ ul {
     .summonRuleText {
         margin-bottom: 50px
     }
-}
+    .abilityUnlock{
+        bottom: 210%;
+        padding: 2% 5%;
+        width: 150%
+    }
+    .roundCounter {
+       width: 30%;
+       text-align: left;
+       margin-left: -3% 
+    }
+    .roundCounter > *{
+       padding: 2% 20% 2% 10%;
+     }
+     .winAnnouncments {
+        font-size: 100%;
+        width: 120%;
+        margin-left: 65%
+     }
+     .roundWord, .roundNumber {
+        margin-left: -33%
+     }
+     .newGame {
+        margin-left: 90%
+     }
 
+}
 @media screen and (min-width: 400px) and (max-width: 800px) {
     body {
         background-image: url("https://img.stablecog.com/insecure/1920w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vODY2NTY2MWYtOTk2Mi00YmFmLTgwYjktZDZjNWExYWM3NmJlLmpwZWc.webp");
@@ -442,6 +472,36 @@ ul {
     .summonRuleText {
         margin-bottom: 59px
     }
+    .newGame {
+        margin-left: 80%;
+        margin-bottom: 5%
+     }
+     .roundCounter {
+        display: flex;
+        flex-direction: row; 
+        width: 100%
+     }
+
+     .roundCounter >* {
+        right: 150%;
+        padding: 2% 1%;
+        height: 2%;
+        font-size: 70%;
+        width: 100%
+     }
+     .winAnnouncments {
+        left: -20%;
+        margin-top: 10%;
+        width: 190%;
+        height: 10px;
+     }
+     .roundNumber {
+        width: 40%;
+        left: 80%
+     }
+     .roundWord{
+        width: 20%
+     }
 }
 
 
