@@ -1,5 +1,4 @@
 //--------------------------------------------------------------- Setting the Stage -----------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                                                              What is DimensionVsBattler?
 
@@ -24,15 +23,13 @@ Players will not only be able to use the search function to pull up team mates f
 Players will battle in 3 rounds. Their character's will battle it off one v one format and have their power determined by a random number generator clothed in a dice mechanic.  The winner will be determined by a math comparison function in Java, that will compare the character's power, but now before Dimension abilities are activated and applied to the equation! The dimension abilities will be applied to dimensions and not each individual character (since that'd be waaaay too many). 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-WireFrame:           https://drive.google.com/file/d/18PLLQcbNmvPCgwfqBYRMMBquK6gGpIxU/view?usp=sharing
+
+Project planning link: <https://drive.google.com/file/d/18PLLQcbNmvPCgwfqBYRMMBquK6gGpIxU/view?usp=sharing>          
 
 
 //-----------------------------------------------------------------------What are the steps?----------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 1. Step 1 accessing the API information into search bars space-around the screen. (These can be formatted with image buttons that provide access to the search bars later in the design phase)
 
 2. Step 2 will be formatting the character's information that's gathered from the API into formatted cards. (Simple formatted cards without any abilities, but simple information input on to parent elements that have the key design aspects as child elements on the card)
@@ -45,3 +42,11 @@ WireFrame:           https://drive.google.com/file/d/18PLLQcbNmvPCgwfqBYRMMBquK6
     c. how java determines the winner of a round and displays that information and the movement of rounds
     d. how java determines the overall winner after the three rounds are up (All three rounds must be play. It's not best two of three due to summon catch up mechanics incorporated into the dimension abilities)
     c. The reset button to bring the player back to the original position. 
+
+5. Step 5 Responsive Elements to screen size, card changes, board set up, CSS design
+
+//------------------------------------------------------------------------
+
+GitHub repo link: <https://github.com/ForgeBrew96/DimensionVsBattler.git>
+
+Deployed project link: <https://github.com/ForgeBrew96/DimensionVsBattler.git>
